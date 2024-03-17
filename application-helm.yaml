@@ -1,17 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd-app
+  name: argocd-app-helm
   namespace: argocd
 spec:
   project: default
 
   source:
     repoURL: https://github.com/overlandzen/argocd-app.git
-    path: resources
+    path: helm
+    plugin:
+      name: argocd-vault-plugin-helm
+      env:
+        - name: HELM_ARGS
+          value: -f values.yaml
+
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd-app
+    namespace: argocd-app-helm
 
   syncPolicy:
     syncOptions:

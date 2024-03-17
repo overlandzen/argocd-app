@@ -1,0 +1,2 @@
+nginx:
+  fullnameOverride: <path:argocd/data/app#APP_NAME>
